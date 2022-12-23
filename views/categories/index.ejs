@@ -1,0 +1,72 @@
+<div class="section">
+  <div class="section-header">
+    <h1>Categories</h1>
+    <div class="section-header-breadcrumb">
+      <div class="breadcrumb-item">Master</div>
+      <div class="breadcrumb-item">Categories</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Categories</h4>
+            <div class="ml-auto">
+              <button class="note-btn btn btn-primary" data-toggle="modal" data-target="#categoryModal" id="btnAdd"> <i class="fas fa-plus"></i> Add</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped data-table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.forEach((category, i) => { %>
+                  <tr data-category="<%= JSON.stringify(category) %>">
+                    <th scope="row"><%- i+1 %> </th>
+                    <td> <%- category.name %>  </td>
+                    <td>
+                      <a href="javascript:void(0)"><i data-target="#categoryModal" data-toggle="modal" class="fas fa-edit edit-category"></i></a>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="categoryModal">
+  <div class="modal-dialog" role="document">
+    <form action="" method="POST" id="categoryForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-footer bg-whitesmoke br">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+  
+<script type="module" src="/javascripts/dashboard/page/category.js"></script>
