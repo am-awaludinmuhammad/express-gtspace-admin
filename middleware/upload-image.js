@@ -1,7 +1,7 @@
 const multer = require('multer');
 const fs = require('fs');
 
-exports.upload = (params) => {
+exports.uploadImage = (params) => {
   const { destination } = params;
   
   return imageUpload = multer({
@@ -18,9 +18,13 @@ exports.upload = (params) => {
     }),
     limits: { fileSize: 20000000 },
     fileFilter: function (req, file, cb) {
-      if (!file.originalname.match(/\.(jpg|JPG|webp|jpeg|JPEG|png|PNG|gif|GIF|jfif|JFIF)$/)) {
-        req.fileValidationError = 'Only image files are allowed!';
-        return cb(null, false);
+      if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+        console.log(file);
+        req.fileValidationError = {
+          'param': file.fieldname,
+          'msg': 'Only .jpg, .jpeg, and .png format allowed!'
+        };
+        cb(null, false);
       }
       cb(null, true);
     }

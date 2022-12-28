@@ -1,8 +1,10 @@
+import {routes} from '/javascripts/url.js';
+
 const templateInputImage = (counter) => {
   return `<div class="form-group group-input-image" id="formGroupImage${counter}">
     <div class="input-group">
       <div class="custom-file">
-        <input name="images[]" type="file" class="custom-file-input" id="customFile">
+        <input name="more_images" type="file" class="custom-file-input" id="customFile">
         <label class="custom-file-label" for="customFile">Choose file</label>
       </div>
       <div class="input-group-append">
@@ -44,4 +46,26 @@ $(document).ready(function() {
       $('.selected-thumbnail').show();
     }
   });
+
+  $('#form').submit(function(e) {
+    e.preventDefault();
+    const form = $(this)[0];
+    const formData = new FormData(form);
+        
+    $.ajax({
+      type: "POST",
+      enctype: 'multipart/form-data',
+      url: $(this).attr('action'),
+      data: formData,
+      processData: false,
+      contentType: false,
+      cache: false,
+      timeout: 800000,
+      success: function (data) {
+        window.location.href = routes.products.index
+      },
+      error: function (e) {
+      }
+  });
+  })
 })
